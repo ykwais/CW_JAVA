@@ -1,0 +1,46 @@
+
+
+syntax = "proto3";
+
+package com.example.grpc;
+option go_package = "tmp/test;test";
+
+service RentalService {
+  rpc RegisterClient(RegisterClientRequest) returns (RegisterClientResponse);
+  rpc GetAvailableCars(Empty) returns (CarListResponse);
+  rpc CreateOrder(CreateOrderRequest) returns (OrderResponse);
+}
+
+message RegisterClientRequest {
+  string username = 1;
+  string password = 2;
+  string email = 3;
+}
+
+message RegisterClientResponse {
+  string message = 1;
+}
+
+message Empty {}
+
+message CarListResponse {
+  repeated Car cars = 1;
+}
+
+message Car {
+  string id = 1;
+  string make = 2;
+  string model = 3;
+  float price = 4;
+}
+
+message CreateOrderRequest {
+  string car_id = 1;
+  string client_id = 2;
+  string payment_info = 3;
+}
+
+message OrderResponse {
+  string order_id = 1;
+  string message = 2;
+}
