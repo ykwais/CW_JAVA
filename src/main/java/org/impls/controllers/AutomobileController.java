@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -25,7 +26,9 @@ public class AutomobileController extends BaseController {
     @FXML
     private ListView<ImageView> listView;
 
-    private Stage fullScreenStage;
+//    private Stage fullScreenStage;
+
+    private Stage imageStage; // Для окна с изображением
 
     public void initialize() {
         backButton.setOnAction(event -> clickOnBack());
@@ -88,27 +91,69 @@ public class AutomobileController extends BaseController {
         switchScene("payment.fxml");
     }
 
+//    private void openImageInWindow(Image image) {
+//        ImageView imageView = new ImageView(image);
+//        imageView.setFitWidth(600);
+//        imageView.setPreserveRatio(true);
+//
+//        if (fullScreenStage == null) {
+//            fullScreenStage = new Stage();
+//            fullScreenStage.initModality(Modality.APPLICATION_MODAL);
+//
+//
+//            Button closeButton = new Button("Close");
+//            closeButton.setOnAction(event -> fullScreenStage.close());
+//
+//
+//            VBox layout = new VBox();
+//            layout.getChildren().addAll(imageView, closeButton);
+//
+//            Scene scene = new Scene(layout);
+//            fullScreenStage.setScene(scene);
+//        }
+//
+//        fullScreenStage.show();
+//    }
+
     private void openImageInWindow(Image image) {
         ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(600);
         imageView.setPreserveRatio(true);
 
-        if (fullScreenStage == null) {
-            fullScreenStage = new Stage();
-            fullScreenStage.initModality(Modality.APPLICATION_MODAL);
+
+        if (imageStage == null) {
+            imageStage = new Stage();
+            imageStage.initModality(Modality.APPLICATION_MODAL);
+            imageStage.setTitle("Просмотр изображения");
 
 
             Button closeButton = new Button("Close");
-            closeButton.setOnAction(event -> fullScreenStage.close());
+            closeButton.setOnAction(event -> imageStage.close());
+
+
+            StackPane pane = new StackPane();
+            pane.getChildren().add(imageView);
 
 
             VBox layout = new VBox();
-            layout.getChildren().addAll(imageView, closeButton);
+            layout.getChildren().addAll(pane, closeButton);
+
 
             Scene scene = new Scene(layout);
-            fullScreenStage.setScene(scene);
+            imageStage.setScene(scene);
+
+
+            imageStage.setMinWidth(200);
+            imageStage.setMinHeight(200);
+            imageStage.setMaxWidth(1600);
+            imageStage.setMaxHeight(1000);
+
+
+            imageView.fitWidthProperty().bind(scene.widthProperty());
+            imageView.fitHeightProperty().bind(scene.heightProperty().subtract(closeButton.getHeight()));
         }
 
-        fullScreenStage.show();
+        imageView.setImage(image);
+
+        imageStage.show();
     }
 }
