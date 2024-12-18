@@ -7,11 +7,13 @@ import javafx.stage.Stage;
 import org.impls.Client;
 
 import java.io.IOException;
+import java.util.Objects;
 
 
 public class MainController {
     private Stage primaryStage;
-    private Client client; // Ваш клиент для взаимодействия с сервером
+    private Client client;
+
 
 
 //        private LoginController loginController;
@@ -33,7 +35,18 @@ public class MainController {
             BaseController controller = loader.getController();
             controller.setMainController(this);
 
-            primaryStage.setScene(new Scene(root));
+            Scene scene = new Scene(root);
+//            if (styleSheetFilePath != null) {
+//                String css = Objects.requireNonNull(this.getClass().getResource(styleSheetFilePath)).toExternalForm();
+//                scene.getStylesheets().add(css);
+//            }
+
+            String css = Objects.requireNonNull(this.getClass().getResource("/org/impls/styles/login.css")).toExternalForm();
+            scene.getStylesheets().add(css);
+
+
+
+            primaryStage.setScene(scene);
 //            primaryStage.setMinWidth(800);
 //            primaryStage.setMinHeight(600);
             primaryStage.show();
