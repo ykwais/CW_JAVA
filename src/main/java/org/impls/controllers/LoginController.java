@@ -18,6 +18,14 @@ public class LoginController extends BaseController {
     }
 
     private void handleLogin() {
+
+        String login = loginTextField.getText();
+        String password = passwordTextField.getText();
+
+        String serverResponse = mainController.getClient().sendLoginRequest(login, password);
+
+        System.out.println("Сервер ответил: " + serverResponse);
+
         switchScene("main_for_client.fxml");
 
     }
@@ -25,7 +33,4 @@ public class LoginController extends BaseController {
     private void switchToRegisterScene() {
         switchScene("register.fxml");
     }
-
-
-
 }

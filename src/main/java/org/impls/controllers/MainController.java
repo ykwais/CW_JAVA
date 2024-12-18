@@ -14,41 +14,25 @@ public class MainController {
     private Stage primaryStage;
     private Client client;
 
-
-
-//        private LoginController loginController;
-//        private RegisterController registerController;
-//        private MainViewController mainViewController;
-
     public MainController(Stage primaryStage, Client client) {
         this.primaryStage = primaryStage;
         this.client = client;
     }
-
 
     public void loadScene(String fxmlFilePath) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFilePath));
             Parent root = loader.load();
 
-
             BaseController controller = loader.getController();
             controller.setMainController(this);
 
             Scene scene = new Scene(root);
-//            if (styleSheetFilePath != null) {
-//                String css = Objects.requireNonNull(this.getClass().getResource(styleSheetFilePath)).toExternalForm();
-//                scene.getStylesheets().add(css);
-//            }
 
             String css = Objects.requireNonNull(this.getClass().getResource("/org/impls/styles/login.css")).toExternalForm();
             scene.getStylesheets().add(css);
 
-
-
             primaryStage.setScene(scene);
-//            primaryStage.setMinWidth(800);
-//            primaryStage.setMinHeight(600);
             primaryStage.show();
 
         } catch (IOException e) {
@@ -56,11 +40,8 @@ public class MainController {
         }
     }
 
-
-//        public String sendRequestToServer(String request) {
-//            //return client.sendRequest(request);
-//
-//            return null;
-//        }
+    public Client getClient() {
+        return client;
+    }
 }
 
