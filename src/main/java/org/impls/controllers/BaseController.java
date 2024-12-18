@@ -13,7 +13,7 @@ public class BaseController {
         mainController.loadScene(fxmlFilePath);
     }
 
-    public void send(String text) {
-        mainController.sendRequestToServer(text);
-    }
+//    public void send(String text) {
+//        mainController.sendRequestToServer(text);
+//    }
 }

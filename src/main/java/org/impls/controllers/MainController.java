@@ -44,10 +44,10 @@ public class MainController {
     }
 
 
-        public String sendRequestToServer(String request) {
-            //return client.sendRequest(request);
-
-            return null;
-        }
+//        public String sendRequestToServer(String request) {
+//            //return client.sendRequest(request);
+//
+//            return null;
+//        }
 }
 
