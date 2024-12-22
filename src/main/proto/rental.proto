@@ -1,17 +1,38 @@
 syntax = "proto3";
 
-package com.example.grpc;
-option go_package = "tmp2/test2;test2";
+package auth;
 
-service Greeting {
-  rpc login(HelloRequest) returns (HelloResponse);
+option go_package = "ykwais.cw.v1;cwv1";
+
+service Service {
+  rpc Register (RegisterRequest) returns (RegisterResponse);
+  rpc Login (LoginRequest) returns (LoginResponse);
+  rpc isAdmin (isAdminRequest) returns (isAdminResponse);
 }
 
-message HelloRequest {
+message RegisterRequest {
   string login = 1;
   string password = 2;
 }
 
-message HelloResponse {
-  string message = 1;
+message RegisterResponse {
+  int64 user_id = 1;
+}
+
+
+message LoginRequest {
+  string login = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  string token = 1;
+}
+
+message isAdminRequest {
+  int64 user_id = 1;
+}
+
+message isAdminResponse {
+  bool is_admin = 1;
 }

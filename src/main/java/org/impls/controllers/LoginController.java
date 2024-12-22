@@ -22,7 +22,7 @@ public class LoginController extends BaseController {
         String login = loginTextField.getText();
         String password = passwordTextField.getText();
 
-        String serverResponse = mainController.getClient().sendLoginRequest(login, password);
+        long serverResponse = mainController.getClient().sendLoginRequest(login, password);
 
         System.out.println("Сервер ответил: " + serverResponse);
 

@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.impls.controllers.RegisterController">
    <children>
       <Label text="Имя">
@@ -15,17 +14,17 @@
             <Insets bottom="10.0" />
          </VBox.margin>
       </Label>
-      <TextField>
+      <TextField fx:id="nameTextField">
          <VBox.margin>
             <Insets bottom="10.0" left="30.0" right="30.0" />
          </VBox.margin>
       </TextField>
-      <Label text="Label">
+      <Label text="Pass">
          <VBox.margin>
             <Insets bottom="10.0" />
          </VBox.margin>
       </Label>
-      <TextField>
+      <TextField fx:id="passTextField">
          <VBox.margin>
             <Insets bottom="10.0" left="30.0" right="30.0" />
          </VBox.margin>

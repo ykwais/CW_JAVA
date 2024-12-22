@@ -1,29 +1,30 @@
 package org.impls;
 
 
-import com.example.grpc.Rental;
-import com.example.grpc.GreetingGrpc;
+import auth.Rental;
+import auth.ServiceGrpc;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 
 public class Client {
 
     private final ManagedChannel channel;
-    private final GreetingGrpc.GreetingBlockingStub stub;
+    private final ServiceGrpc.ServiceBlockingStub stub;
 
     public Client() {
         this.channel = ManagedChannelBuilder.forTarget("localhost:8080").usePlaintext().build();
-        this.stub = GreetingGrpc.newBlockingStub(channel);
+        this.stub = ServiceGrpc.newBlockingStub(channel);
     }
 
-    public String sendLoginRequest(String login, String password) {
-        Rental.HelloRequest request = Rental.HelloRequest.newBuilder()
+    public long sendLoginRequest(String login, String password) {
+        Rental.RegisterRequest request = Rental.RegisterRequest.newBuilder()
                 .setLogin(login)
                 .setPassword(password)
                 .build();
-        Rental.HelloResponse response = stub.login(request);
-        return response.getMessage();
+        Rental.RegisterResponse response = stub.register(request);
+        return response.getUserId();
     }
+
 
     public void shutdown() {
         channel.shutdownNow();
