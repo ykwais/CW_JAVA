@@ -1,5 +1,6 @@
 package org.impls.controllers;
 
+import auth.Rental;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -9,8 +10,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
+import java.io.ByteArrayInputStream;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -26,11 +28,14 @@ public class MainForClientController extends BaseController{
         //contentVBox.setAlignment(javafx.geometry.Pos.CENTER);
 
         dtpButton.setOnAction(event -> clickOnDTP());
+        Platform.runLater(() -> {
+            List<Rental.ListPhotosResponse> photos = mainController.getClient().listPhotos();
 
-        for (int i = 0; i < 50; i++) {
-            HBox item = createItem("Car " + (i + 1));
-            contentListView.getItems().add(item);
-        }
+            for (Rental.ListPhotosResponse photo : photos) {
+                HBox item = createItem(photo.getPhotoName(), photo.getChunk().toByteArray());
+                contentListView.getItems().add(item);
+            }
+        });
     }
 
     private void clickOnDTP() {
@@ -42,22 +47,21 @@ public class MainForClientController extends BaseController{
         return new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
     }
 
-    private HBox createItem(String labelText) {
+    private HBox createItem(String labelText, byte[] byteArray) {
 
         HBox itemBox = new HBox(100);
         itemBox.setAlignment(javafx.geometry.Pos.CENTER);
 
-
         ImageView imageView = new ImageView();
-
         Label label = new Label(labelText);
 
-        itemBox.setOnMouseClicked(event ->handleItemClick());
+        itemBox.setOnMouseClicked(event -> handleItemClick());
+
 
         Task<Image> loadImageTask = new Task<>() {
             @Override
             protected Image call() {
-                return loadImage("/org/impls/img/img.png");
+                return new Image(new ByteArrayInputStream(byteArray));
             }
         };
 
@@ -74,11 +78,9 @@ public class MainForClientController extends BaseController{
             System.err.println("Ошибка загрузки изображения");
         });
 
-
         ExecutorService executor = Executors.newFixedThreadPool(5);
         executor.submit(loadImageTask);
         executor.shutdown();
-
 
         itemBox.getChildren().addAll(imageView, label);
         return itemBox;

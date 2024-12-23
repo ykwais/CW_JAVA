@@ -36,7 +36,8 @@ public class MainController {
             primaryStage.show();
 
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 

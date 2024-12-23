@@ -6,6 +6,10 @@ import auth.ServiceGrpc;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 public class Client {
 
     private final ManagedChannel channel;
@@ -24,6 +28,16 @@ public class Client {
         Rental.RegisterResponse response = stub.register(request);
         return response.getUserId();
     }
+
+    public List<Rental.ListPhotosResponse> listPhotos() {
+        List<Rental.ListPhotosResponse> photos = new ArrayList<>();
+        Iterator<Rental.ListPhotosResponse> responses = stub.listPhotos(Rental.EmptyRequest.newBuilder().build());
+        while (responses.hasNext()) {
+            photos.add(responses.next());
+        }
+        return photos;
+    }
+
 
 
     public void shutdown() {
