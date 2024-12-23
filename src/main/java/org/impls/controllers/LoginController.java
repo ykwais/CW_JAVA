@@ -22,9 +22,9 @@ public class LoginController extends BaseController {
         String login = loginTextField.getText();
         String password = passwordTextField.getText();
 
-        long serverResponse = mainController.getClient().sendLoginRequest(login, password);
+        //long serverResponse = mainController.getClient().sendLoginRequest(login, password);
 
-        System.out.println("Сервер ответил: " + serverResponse);
+        //System.out.println("Сервер ответил: " + serverResponse);
 
         switchScene("main_for_client.fxml");
 

@@ -5,6 +5,7 @@ import auth.Rental;
 import auth.ServiceGrpc;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.stub.StreamObserver;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -13,30 +14,33 @@ import java.util.List;
 public class Client {
 
     private final ManagedChannel channel;
-    private final ServiceGrpc.ServiceBlockingStub stub;
+    private final ServiceGrpc.ServiceStub asyncStub;
 
     public Client() {
         this.channel = ManagedChannelBuilder.forTarget("localhost:8080").usePlaintext().build();
-        this.stub = ServiceGrpc.newBlockingStub(channel);
+        this.asyncStub = ServiceGrpc.newStub(channel);
     }
 
-    public long sendLoginRequest(String login, String password) {
+    public void sendLoginRequest(String login, String password, StreamObserver<Rental.RegisterResponse> responseObserver) {
         Rental.RegisterRequest request = Rental.RegisterRequest.newBuilder()
                 .setLogin(login)
                 .setPassword(password)
                 .build();
-        Rental.RegisterResponse response = stub.register(request);
-        return response.getUserId();
+        asyncStub.register(request, responseObserver);
     }
 
-    public List<Rental.ListPhotosResponse> listPhotos() {
-        List<Rental.ListPhotosResponse> photos = new ArrayList<>();
-        Iterator<Rental.ListPhotosResponse> responses = stub.listPhotos(Rental.EmptyRequest.newBuilder().build());
-        while (responses.hasNext()) {
-            photos.add(responses.next());
-        }
-        return photos;
+    public void listPhotos(StreamObserver<Rental.ListPhotosResponse> responseObserver) {
+        asyncStub.listPhotos(Rental.EmptyRequest.newBuilder().build(), responseObserver);
     }
+
+//    public List<Rental.ListPhotosResponse> listPhotos() {
+//        List<Rental.ListPhotosResponse> photos = new ArrayList<>();
+//        Iterator<Rental.ListPhotosResponse> responses = stub.listPhotos(Rental.EmptyRequest.newBuilder().build());
+//        while (responses.hasNext()) {
+//            photos.add(responses.next());
+//        }
+//        return photos;
+//    }
 
 
 

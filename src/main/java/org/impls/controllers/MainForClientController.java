@@ -1,6 +1,7 @@
 package org.impls.controllers;
 
 import auth.Rental;
+import io.grpc.stub.StreamObserver;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -12,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
@@ -29,12 +31,36 @@ public class MainForClientController extends BaseController{
 
         dtpButton.setOnAction(event -> clickOnDTP());
         Platform.runLater(() -> {
-            List<Rental.ListPhotosResponse> photos = mainController.getClient().listPhotos();
+            // Создаем пустой список для хранения фотографий
+            List<Rental.ListPhotosResponse> photos = new ArrayList<>();
 
-            for (Rental.ListPhotosResponse photo : photos) {
-                HBox item = createItem(photo.getPhotoName(), photo.getChunk().toByteArray());
-                contentListView.getItems().add(item);
-            }
+            // Асинхронно загружаем фотографии
+            mainController.getClient().listPhotos(new StreamObserver<Rental.ListPhotosResponse>() {
+                @Override
+                public void onNext(Rental.ListPhotosResponse listPhotosResponse) {
+                    // Добавляем полученную фотографию в список
+                    photos.add(listPhotosResponse);
+                }
+
+                @Override
+                public void onError(Throwable throwable) {
+                    System.err.println("Error during list photos request: " + throwable.getMessage());
+                }
+
+                @Override
+                public void onCompleted() {
+                    System.out.println("List photos request completed.");
+
+                    // После завершения загрузки, обновляем UI
+                    Platform.runLater(() -> {
+                        // Добавляем фотографии в список View
+                        for (Rental.ListPhotosResponse photo : photos) {
+                            HBox item = createItem(photo.getPhotoName(), photo.getChunk().toByteArray());
+                            contentListView.getItems().add(item);
+                        }
+                    });
+                }
+            });
         });
     }
 
