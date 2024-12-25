@@ -43,6 +43,10 @@ public class Client {
         asyncStub.listPhotos(Rental.EmptyRequest.newBuilder().build(), responseObserver);
     }
 
+    public void getPhotosAutmobile(long id, StreamObserver<Rental.PhotosOfAutomobileResponse> responseObserver) {
+        asyncStub.photosOfAutomobile(Rental.PhotosOfAutomobileRequest.newBuilder().setId(id).build(), responseObserver);
+    }
+
     public void photosForMainScreen(String dateBegin, String dateEnd, StreamObserver<Rental.PhotosForMainScreenResponse> responseObserver) {
         System.out.println(dateBegin);
         System.out.println(dateEnd);

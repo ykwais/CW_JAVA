@@ -1,5 +1,7 @@
 package org.impls.controllers;
 
+import auth.Rental;
+import io.grpc.stub.StreamObserver;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -13,6 +15,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -34,23 +41,61 @@ public class AutomobileController extends BaseController {
         backButton.setOnAction(event -> clickOnBack());
         selectButton.setOnAction(event -> clickOnSelect());
 
+        Map<Integer, ByteArrayOutputStream> photoChunks = new HashMap<>();
+
+        Platform.runLater(() -> {
+                    mainController.getClient().getPhotosAutmobile(mainController.id_current_vehicle, new StreamObserver<Rental.PhotosOfAutomobileResponse>() {
+                        private int photoIndex = 0;
+
+                        @Override
+                        public void onNext(Rental.PhotosOfAutomobileResponse photosOfAutomobileResponse) {
+                            byte[] chunk = photosOfAutomobileResponse.getChunk().toByteArray();
+
+                            photoChunks.computeIfAbsent(photoIndex, k -> new ByteArrayOutputStream());
+                            try {
+                                photoChunks.get(photoIndex).write(chunk);
+                            } catch (IOException e) {
+                                System.err.println("Error writing chunk for photo index: " + photoIndex);
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable throwable) {
+                            System.err.println("Error during PhotosOfAutomobile request: " + throwable.getMessage());
+                        }
+
+                        public void onCompleted() {
+                            System.out.println("PhotosOfAutomobile request completed.");
+
+                            Platform.runLater(() -> {
+                                for (Map.Entry<Integer, ByteArrayOutputStream> entry : photoChunks.entrySet()) {
+                                    byte[] photoData = entry.getValue().toByteArray();
+                                    ImageView imageView = createImageView(photoData);
+                                    listView.getItems().add(imageView);
+                                }
+                            });
+                        }
+                    });
+                });
+
+
         listView.setOnMouseClicked(event -> {
             if (event.getClickCount() == 1) {
                 openImageInWindow(listView.getSelectionModel().getSelectedItem().getImage());
             }
         });
 
-        for (int i = 0; i < 10; ++i) {
-            ImageView imageView = createImageView();
-            listView.getItems().add(imageView);
-        }
+//        for (int i = 0; i < 10; ++i) {
+//            ImageView imageView = createImageView();
+//            listView.getItems().add(imageView);
+//        }
     }
 
     private Image loadImage(String imagePath) {
         return new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
     }
 
-    private ImageView createImageView() {
+    private ImageView createImageView(byte[] byteArray) {
         ImageView imageView = new ImageView();
         imageView.setFitWidth(300);
         imageView.setFitHeight(300);
@@ -58,7 +103,7 @@ public class AutomobileController extends BaseController {
         Task<Image> loadImageTask = new Task<>() {
             @Override
             protected Image call() {
-                return loadImage("/org/impls/img/img.png");
+                return new Image(new ByteArrayInputStream(byteArray));
             }
         };
 

@@ -1,4 +1,5 @@
 package org.impls.controllers;
+import org.impls.VehicleDetails;
 
 import auth.Rental;
 import com.google.protobuf.ByteString;
@@ -19,7 +20,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import org.impls.VehicleDetails;
+
 
 public class MainForClientController extends BaseController{
     @FXML
@@ -75,7 +76,7 @@ public class MainForClientController extends BaseController{
                             System.out.println("Photos for main screen request completed.");
 
                             Platform.runLater(() -> {
-                                // После получения всех данных, создаём элементы интерфейса
+
                                 for (VehicleDetails vehicleDetails : vehicleDetailsMap.values()) {
                                     HBox item = createItem(vehicleDetails);
                                     contentListView.getItems().add(item);
@@ -99,7 +100,7 @@ public class MainForClientController extends BaseController{
 
     private HBox createItem(VehicleDetails vehicleDetails) {
 
-        HBox itemBox = new HBox(20); // Установим расстояние между элементами
+        HBox itemBox = new HBox(20);
         itemBox.setAlignment(javafx.geometry.Pos.CENTER);
 
         // Создаем метку с информацией о транспортном средстве
@@ -147,6 +148,7 @@ public class MainForClientController extends BaseController{
     }
 
     private void handleItemClick(long id) {
+        mainController.id_current_vehicle = id;
         switchScene("automobile.fxml");
     }
 

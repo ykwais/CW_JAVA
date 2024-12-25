@@ -15,6 +15,8 @@ public class MainController {
     private Client client;
     public String startDate;
     public String endDate;
+    public long id_current_vehicle;
+    public long id_user;
 
 
 

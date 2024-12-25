@@ -9,6 +9,15 @@ service Service {
   rpc Login (LoginRequest) returns (LoginResponse);
   rpc ListPhotos (EmptyRequest) returns (stream ListPhotosResponse);
   rpc PhotosForMainScreen (PhotosForMainScreenRequest) returns (stream PhotosForMainScreenResponse);
+  rpc PhotosOfAutomobile (PhotosOfAutomobileRequest) returns (stream PhotosOfAutomobileResponse);
+}
+
+message PhotosOfAutomobileRequest {
+  int64 id = 1;
+}
+
+message PhotosOfAutomobileResponse {
+  bytes chunk = 1;
 }
 
 message PhotosForMainScreenRequest {
