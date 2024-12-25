@@ -17,7 +17,8 @@ message PhotosOfAutomobileRequest {
 }
 
 message PhotosOfAutomobileResponse {
-  bytes chunk = 1;
+  string photo_name = 1;
+  bytes chunk = 2;
 }
 
 message PhotosForMainScreenRequest {
