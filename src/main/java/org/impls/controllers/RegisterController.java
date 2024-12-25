@@ -12,7 +12,7 @@ public class RegisterController extends BaseController{
     private Button enterButton, backButton;
 
     @FXML
-    private TextField nameTextField, passTextField;
+    private TextField nameTextField, passTextField, emailTextField, realNameTextField;
 
 
     public void initialize() {
@@ -26,10 +26,15 @@ public class RegisterController extends BaseController{
             String login = nameTextField.getText();
             String password = passTextField.getText();
 
-            mainController.getClient().sendLoginRequest(login, password, new StreamObserver<Rental.RegisterResponse>() {
+            String email = emailTextField.getText();
+            String realName = realNameTextField.getText();
+
+            mainController.getClient().sendRegisterRequest(login, password, email, realName, new StreamObserver<Rental.RegisterResponse>() {
+                private long userID;
                 @Override
                 public void onNext(Rental.RegisterResponse registerResponse) {
-                    System.out.println("User ID: " + registerResponse.getUserId());
+                    userID = registerResponse.getUserId();
+                    System.out.println("User ID: " + userID);
                 }
 
                 @Override
@@ -39,12 +44,14 @@ public class RegisterController extends BaseController{
 
                 @Override
                 public void onCompleted() {
-                    System.out.println("Login request completed.");
+                    System.out.println("Register request completed.");
                 }
             });
 
             //System.out.println("Сервер ответил: " + serverResponse);
 
+
+        //тут чекер на успешный возврат
             switchScene("main_for_client.fxml");
 
 

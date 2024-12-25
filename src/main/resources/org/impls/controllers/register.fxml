@@ -6,60 +6,59 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.impls.controllers.RegisterController" style="-fx-background-color: #f4f4f4;">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.impls.controllers.RegisterController">
    <children>
       <!-- Имя -->
-      <Label text="Имя" style="-fx-font-size: 14px; -fx-text-fill: #333;">
+      <Label style="-fx-font-size: 14px; -fx-text-fill: #333;" text="Имя">
          <VBox.margin>
             <Insets bottom="10.0" />
          </VBox.margin>
       </Label>
-      <TextField fx:id="nameTextField" promptText="Введите имя" style="-fx-font-size: 14px; -fx-background-color: white; -fx-border-radius: 5px; -fx-padding: 10px;">
+      <TextField fx:id="nameTextField" promptText="Введите имя" style="-fx-font-size: 14px; -fx-background-color: white; -fx-border-radius: 5px; -fx-padding: 10px; -fx-text-fill: #333;">
          <VBox.margin>
             <Insets bottom="15.0" left="30.0" right="30.0" />
          </VBox.margin>
       </TextField>
 
       <!-- Пароль -->
-      <Label text="Пароль" style="-fx-font-size: 14px; -fx-text-fill: #333;">
+      <Label style="-fx-font-size: 14px; -fx-text-fill: #333;" text="Пароль">
          <VBox.margin>
             <Insets bottom="10.0" />
          </VBox.margin>
       </Label>
-      <TextField fx:id="passTextField" promptText="Введите пароль" style="-fx-font-size: 14px; -fx-background-color: white; -fx-border-radius: 5px; -fx-padding: 10px;">
+      <TextField fx:id="passTextField" promptText="Введите пароль" style="-fx-font-size: 14px; -fx-background-color: white; -fx-border-radius: 5px; -fx-padding: 10px;  -fx-text-fill: #333;">
          <VBox.margin>
             <Insets bottom="15.0" left="30.0" right="30.0" />
          </VBox.margin>
       </TextField>
 
       <!-- Лейбл 1 -->
-      <Label text="Label" style="-fx-font-size: 14px; -fx-text-fill: #333;">
+      <Label style="-fx-font-size: 14px; -fx-text-fill: #333;" text="Email">
          <VBox.margin>
             <Insets bottom="10.0" />
          </VBox.margin>
       </Label>
-      <TextField style="-fx-font-size: 14px; -fx-background-color: white; -fx-border-radius: 5px; -fx-padding: 10px;">
+      <TextField fx:id="emailTextField" promptText="Введите вашу электронную почту" style="-fx-font-size: 14px; -fx-background-color: white; -fx-border-radius: 5px; -fx-padding: 10px;  -fx-text-fill: #333;">
          <VBox.margin>
             <Insets bottom="15.0" left="30.0" right="30.0" />
          </VBox.margin>
       </TextField>
 
       <!-- Лейбл 2 -->
-      <Label text="Label" style="-fx-font-size: 14px; -fx-text-fill: #333;">
+      <Label style="-fx-font-size: 14px; -fx-text-fill: #333;" text="Ваше имя">
          <VBox.margin>
             <Insets bottom="10.0" />
          </VBox.margin>
       </Label>
-      <TextField style="-fx-font-size: 14px; -fx-background-color: white; -fx-border-radius: 5px; -fx-padding: 10px;">
+      <TextField fx:id="realNameTextField" promptText="Введите ваше имя" style="-fx-font-size: 14px; -fx-background-color: white; -fx-border-radius: 5px; -fx-padding: 10px;  -fx-text-fill: #333;">
          <VBox.margin>
             <Insets bottom="15.0" left="30.0" right="30.0" />
          </VBox.margin>
       </TextField>
 
       <!-- Кнопка Go -->
-      <Button fx:id="enterButton" mnemonicParsing="false" text="Go" style="-fx-font-size: 16px; -fx-background-color: #4CAF50; -fx-text-fill: white; -fx-border-radius: 5px; -fx-padding: 10px; -fx-cursor: hand;">
+      <Button fx:id="enterButton" mnemonicParsing="false" style="-fx-font-size: 16px; -fx-background-color: #4CAF50; -fx-text-fill: white; -fx-border-radius: 5px; -fx-padding: 10px; -fx-cursor: hand;" text="Go">
          <VBox.margin>
             <Insets bottom="30.0" />
          </VBox.margin>
@@ -68,7 +67,7 @@
       <!-- Нижняя панель с кнопкой Back -->
       <HBox alignment="BOTTOM_LEFT" prefHeight="53.0" prefWidth="600.0">
          <children>
-            <Button fx:id="backButton" mnemonicParsing="false" text="Back" style="-fx-font-size: 16px; -fx-background-color: #f44336; -fx-text-fill: white; -fx-border-radius: 5px; -fx-padding: 10px; -fx-cursor: hand;">
+            <Button fx:id="backButton" mnemonicParsing="false" style="-fx-font-size: 16px; -fx-background-color: #f44336; -fx-text-fill: white; -fx-border-radius: 5px; -fx-padding: 10px; -fx-cursor: hand;" text="Back">
             </Button>
          </children>
          <padding>

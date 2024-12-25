@@ -13,6 +13,10 @@ import java.util.Objects;
 public class MainController {
     private Stage primaryStage;
     private Client client;
+    public String startDate;
+    public String endDate;
+
+
 
     public MainController(Stage primaryStage, Client client) {
         this.primaryStage = primaryStage;
@@ -36,8 +40,8 @@ public class MainController {
             primaryStage.show();
 
         } catch (IOException e) {
-            //System.out.println(e.getMessage());
-            e.printStackTrace();
+            System.out.println(e.getMessage());
+            //e.printStackTrace();
         }
     }
 

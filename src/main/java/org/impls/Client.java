@@ -21,16 +21,36 @@ public class Client {
         this.asyncStub = ServiceGrpc.newStub(channel);
     }
 
-    public void sendLoginRequest(String login, String password, StreamObserver<Rental.RegisterResponse> responseObserver) {
+    public void sendRegisterRequest(String login, String password, String email, String real_name, StreamObserver<Rental.RegisterResponse> responseObserver) {
         Rental.RegisterRequest request = Rental.RegisterRequest.newBuilder()
                 .setLogin(login)
                 .setPassword(password)
+                .setEmail(email)
+                .setRealName(real_name)
                 .build();
         asyncStub.register(request, responseObserver);
     }
 
+    public void sendLoginRequest(String login, String password, StreamObserver<Rental.LoginResponse> responseObserver) {
+        Rental.LoginRequest request = Rental.LoginRequest.newBuilder()
+                .setLogin(login)
+                .setPassword(password)
+                .build();
+        asyncStub.login(request, responseObserver);
+    }
+
     public void listPhotos(StreamObserver<Rental.ListPhotosResponse> responseObserver) {
         asyncStub.listPhotos(Rental.EmptyRequest.newBuilder().build(), responseObserver);
+    }
+
+    public void photosForMainScreen(String dateBegin, String dateEnd, StreamObserver<Rental.PhotosForMainScreenResponse> responseObserver) {
+        System.out.println(dateBegin);
+        System.out.println(dateEnd);
+        Rental.PhotosForMainScreenRequest request = Rental.PhotosForMainScreenRequest.newBuilder()
+                .setDateBegin(dateBegin)
+                .setDateEnd(dateEnd)
+                .build();
+        asyncStub.photosForMainScreen(request, responseObserver);
     }
 
 //    public List<Rental.ListPhotosResponse> listPhotos() {

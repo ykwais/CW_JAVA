@@ -1,8 +1,12 @@
 package org.impls.controllers;
 
+import auth.Rental;
+import io.grpc.stub.StreamObserver;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+
+import java.util.concurrent.CountDownLatch;
 
 public class LoginController extends BaseController {
 
@@ -22,11 +26,42 @@ public class LoginController extends BaseController {
         String login = loginTextField.getText();
         String password = passwordTextField.getText();
 
-        //long serverResponse = mainController.getClient().sendLoginRequest(login, password);
+       // final long[] userIDs = new long[1];
 
-        //System.out.println("Сервер ответил: " + serverResponse);
 
-        switchScene("main_for_client.fxml");
+        mainController.getClient().sendLoginRequest(login, password, new StreamObserver<Rental.LoginResponse>() {
+            @Override
+            public void onNext(Rental.LoginResponse loginResponse) {
+                //userIDs[0] = loginResponse.getUserId();
+                System.out.println("User ID: " + loginResponse.getUserId());
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                System.err.println("Error during login request: " + throwable.getMessage());
+            }
+
+            @Override
+            public void onCompleted() {
+                System.out.println("Login request completed.");
+            }
+        });
+
+
+
+//        long userID = userIDs[0];
+//
+//        System.out.println("!!!!!!!!!!!!!!!!User ID: " + userID);
+
+
+        switchScene("data_picker.fxml");
+
+
+
+
+
+
+        //switchScene("main_for_client.fxml");
 
     }
 
