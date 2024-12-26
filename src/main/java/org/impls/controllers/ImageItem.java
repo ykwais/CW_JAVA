@@ -11,7 +11,7 @@ public class ImageItem {
     private ImageView imageView;
 
     public ImageItem(byte[] photoData) {
-        // Создаем уникальную копию данных для каждого изображения
+
         this.photoData = Arrays.copyOf(photoData, photoData.length); // Создаем копию массива
         this.imageView = createImageView(this.photoData);  // Передаем уникальные данные для создания ImageView
     }

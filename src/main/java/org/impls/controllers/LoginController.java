@@ -33,6 +33,7 @@ public class LoginController extends BaseController {
             @Override
             public void onNext(Rental.LoginResponse loginResponse) {
                 //userIDs[0] = loginResponse.getUserId();
+                mainController.id_user = loginResponse.getUserId();
                 System.out.println("User ID: " + loginResponse.getUserId());
             }
 

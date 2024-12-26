@@ -27,10 +27,11 @@ public class MainForClientController extends BaseController{
     private ListView<HBox> contentListView;
 
     @FXML
-    private Button dtpButton;
+    private Button dtpButton, bookingButton;
 
     public void initialize() {
         dtpButton.setOnAction(event -> clickOnDTP());
+        bookingButton.setOnAction(event -> clickOnBooking());
         Platform.runLater(() -> {
 
             mainController.getClient().photosForMainScreen(
@@ -92,6 +93,10 @@ public class MainForClientController extends BaseController{
     private void clickOnDTP() {
         switchScene("accident.fxml");
 
+    }
+
+    private void clickOnBooking() {
+        switchScene("table_bookings.fxml");
     }
 
     private Image loadImage(String imagePath) {

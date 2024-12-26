@@ -34,6 +34,7 @@ public class RegisterController extends BaseController{
                 @Override
                 public void onNext(Rental.RegisterResponse registerResponse) {
                     userID = registerResponse.getUserId();
+                    mainController.id_user = userID;
                     System.out.println("User ID: " + userID);
                 }
 

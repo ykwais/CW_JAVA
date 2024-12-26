@@ -104,6 +104,34 @@ public class AutomobileController extends BaseController {
     }
 
     private void clickOnSelect() {
+        long userId = mainController.id_user;
+        long vehicleId = mainController.id_current_vehicle;
+        String startTime = mainController.startDate;
+        String endTime = mainController.endDate;
+
+        System.out.println("user id: " + userId);
+        System.out.println("vehicle id: " + vehicleId);
+        System.out.println("start date: " + startTime);
+        System.out.println("end date: " + endTime);
+
+        mainController.getClient().sendSelectRequest(userId, vehicleId, startTime, endTime, new StreamObserver<Rental.SelectAutoResponse>() {
+
+            @Override
+            public void onNext(Rental.SelectAutoResponse response) {
+                System.out.println("booking ID: " + response.getVehicleId());
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                System.err.println("Error during booking request: " + throwable.getMessage());
+            }
+
+            @Override
+            public void onCompleted() {
+                System.out.println("select request completed.");
+            }
+        });
+
         switchScene("payment.fxml");
     }
 

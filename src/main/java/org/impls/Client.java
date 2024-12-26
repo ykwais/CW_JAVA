@@ -21,6 +21,34 @@ public class Client {
         this.asyncStub = ServiceGrpc.newStub(channel);
     }
 
+    public void sendSelectRequest(long userID, long vehicleID, String startTime, String endTime, StreamObserver<Rental.SelectAutoResponse> responseObserver) {
+        Rental.SelectAutoRequest request = Rental.SelectAutoRequest.newBuilder()
+                .setUserId(userID)
+                .setVehicleId(vehicleID)
+                .setStartTime(startTime)
+                .setEndTime(endTime)
+                .build();
+        asyncStub.selectAuto(request, responseObserver);
+    }
+
+    public void sendGetUserBookingsRequest(long userId, StreamObserver<Rental.UserBookingsResponse> responseObserver) {
+
+        Rental.UserBookingsRequest request = Rental.UserBookingsRequest.newBuilder()
+                .setUserId(userId)
+                .build();
+
+
+        asyncStub.getUserBookings(request, responseObserver);
+    }
+
+    public void sendCancelBooking(long userID, long vehicleId, StreamObserver<Rental.CancelBookingResponse> responseObserver) {
+        Rental.CancelBookingRequest request = Rental.CancelBookingRequest.newBuilder()
+                .setUserId(userID)
+                .setVehicleId(vehicleId)
+                .build();
+        asyncStub.cancelBooking(request, responseObserver);
+    }
+
     public void sendRegisterRequest(String login, String password, String email, String real_name, StreamObserver<Rental.RegisterResponse> responseObserver) {
         Rental.RegisterRequest request = Rental.RegisterRequest.newBuilder()
                 .setLogin(login)
@@ -56,6 +84,8 @@ public class Client {
                 .build();
         asyncStub.photosForMainScreen(request, responseObserver);
     }
+
+
 
 //    public List<Rental.ListPhotosResponse> listPhotos() {
 //        List<Rental.ListPhotosResponse> photos = new ArrayList<>();
