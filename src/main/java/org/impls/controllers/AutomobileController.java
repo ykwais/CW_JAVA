@@ -132,6 +132,8 @@ public class AutomobileController extends BaseController {
             }
         });
 
+        switchScene("main_for_client.fxml");
+
 
     }
 

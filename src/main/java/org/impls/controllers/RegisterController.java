@@ -35,6 +35,11 @@ public class RegisterController extends BaseController{
                 public void onNext(Rental.RegisterResponse registerResponse) {
                     userID = registerResponse.getUserId();
                     mainController.id_user = userID;
+                    if (mainController.id_user == 1) {
+                        mainController.isAdmin = true;
+                    } else {
+                        mainController.isAdmin = false;
+                    }
                     System.out.println("User ID: " + userID);
                 }
 
@@ -49,6 +54,12 @@ public class RegisterController extends BaseController{
                 }
             });
 
+
+
+            if (mainController.isAdmin) {
+                switchScene("admin_view.fxml");
+                return;
+            }
             switchScene("data_picker.fxml");
 
 

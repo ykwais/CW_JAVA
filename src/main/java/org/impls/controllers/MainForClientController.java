@@ -27,12 +27,14 @@ public class MainForClientController extends BaseController{
     private ListView<HBox> contentListView;
 
     @FXML
-    private Button bookingButton, changeDataButton;
+    private Button bookingButton, changeDataButton, refreshButton, exitButton;
 
     public void initialize() {
 
         bookingButton.setOnAction(event -> clickOnBooking());
         changeDataButton.setOnAction(event -> clickOnChange());
+        refreshButton.setOnAction(e -> clickOnRefresh());
+        exitButton.setOnAction(event -> clickOnExit());
         Platform.runLater(() -> {
 
             mainController.getClient().photosForMainScreen(
@@ -97,6 +99,14 @@ public class MainForClientController extends BaseController{
 
     private void clickOnChange() {
         switchScene("data_picker_2.fxml");
+    }
+
+    private void clickOnRefresh() {
+        switchScene("main_for_client.fxml");
+    }
+
+    private void clickOnExit() {
+        switchScene("login.fxml");
     }
 
 //    private Image loadImage(String imagePath) {

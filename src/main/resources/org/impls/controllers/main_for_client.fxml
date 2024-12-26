@@ -11,7 +11,11 @@
    <children>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Button fx:id="changeDataButton" alignment="CENTER" mnemonicParsing="false" text="Сменить даты" />
+            <Button fx:id="changeDataButton" alignment="CENTER" mnemonicParsing="false" text="Сменить даты">
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin></Button>
+            <Button fx:id="refreshButton" mnemonicParsing="false" text="Refresh" />
             <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                <children>
@@ -20,7 +24,7 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="dtpButton" mnemonicParsing="false" text="ДТП" />
+                  <Button fx:id="exitButton" mnemonicParsing="false" text="Exit" />
                </children>
             </VBox>
          </children>

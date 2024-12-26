@@ -2,6 +2,7 @@ package org.impls.controllers;
 
 import auth.Rental;
 import io.grpc.stub.StreamObserver;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -29,11 +30,14 @@ public class LoginController extends BaseController {
 
 
 
+
+
         mainController.getClient().sendLoginRequest(login, password, new StreamObserver<Rental.LoginResponse>() {
             @Override
             public void onNext(Rental.LoginResponse loginResponse) {
                 mainController.id_user = loginResponse.getUserId();
-                System.out.println("User ID: " + loginResponse.getUserId());
+                //mainController.isAdmin = mainController.id_user == 1;
+                System.out.println("User ID: " + mainController.id_user);
             }
 
             @Override
@@ -43,18 +47,30 @@ public class LoginController extends BaseController {
 
             @Override
             public void onCompleted() {
-                System.out.println("Login request completed.");
+//                System.out.println("Login request completed.");
+                System.out.println("!!!!!!!!!!!!! " + mainController.id_user);
+
+                Platform.runLater(() -> {
+                    if (mainController.id_user == 1) {
+                        switchScene("admin_view.fxml");
+                    } else {
+                        switchScene("data_picker.fxml");
+                    }
+                });
             }
         });
 
 
-        switchScene("data_picker.fxml");
 
 
 
     }
 
     private void switchToRegisterScene() {
+//        if (mainController.isAdmin) {
+//            switchScene("admin_view.fxml");
+//            return;
+//        }
         switchScene("register.fxml");
     }
 }

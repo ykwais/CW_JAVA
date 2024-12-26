@@ -31,6 +31,11 @@ public class Client {
         asyncStub.selectAuto(request, responseObserver);
     }
 
+    public void sendGetInfoAdminRequest(StreamObserver<Rental.GetDataForAdminResponse> responseObserver) {
+        Rental.GetDataForAdminRequest request = Rental.GetDataForAdminRequest.newBuilder().build();
+        asyncStub.getDataForAdmin(request, responseObserver);
+    }
+
     public void sendGetUserBookingsRequest(long userId, StreamObserver<Rental.UserBookingsResponse> responseObserver) {
 
         Rental.UserBookingsRequest request = Rental.UserBookingsRequest.newBuilder()

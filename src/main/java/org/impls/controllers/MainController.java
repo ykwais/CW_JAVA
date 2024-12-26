@@ -17,6 +17,7 @@ public class MainController {
     public String endDate;
     public long id_current_vehicle;
     public long id_user;
+    public boolean isAdmin = false;
 
 
 

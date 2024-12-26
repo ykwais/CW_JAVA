@@ -13,6 +13,24 @@ service Service {
   rpc SelectAuto (SelectAutoRequest) returns (SelectAutoResponse);
   rpc GetUserBookings (UserBookingsRequest) returns (UserBookingsResponse);
   rpc CancelBooking (CancelBookingRequest) returns (CancelBookingResponse);
+  rpc GetDataForAdmin (GetDataForAdminRequest) returns (GetDataForAdminResponse);
+}
+
+message GetDataForAdminRequest{}
+
+message DataForAdmin {
+  string login = 1;
+  string user_email = 2;
+  string real_name = 3;
+  string brand = 4;
+  string model = 5;
+  string data_start = 6;
+  string data_end = 7;
+  double price_per_day = 8;
+}
+
+message GetDataForAdminResponse {
+  repeated DataForAdmin data_for_admin = 1;
 }
 
 message CancelBookingRequest {
