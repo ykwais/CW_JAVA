@@ -49,11 +49,8 @@ public class RegisterController extends BaseController{
                 }
             });
 
-            //System.out.println("Сервер ответил: " + serverResponse);
+            switchScene("data_picker.fxml");
 
-
-        //тут чекер на успешный возврат
-            switchScene("main_for_client.fxml");
 
 
     }

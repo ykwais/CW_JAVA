@@ -27,11 +27,12 @@ public class MainForClientController extends BaseController{
     private ListView<HBox> contentListView;
 
     @FXML
-    private Button dtpButton, bookingButton;
+    private Button bookingButton, changeDataButton;
 
     public void initialize() {
-        dtpButton.setOnAction(event -> clickOnDTP());
+
         bookingButton.setOnAction(event -> clickOnBooking());
+        changeDataButton.setOnAction(event -> clickOnChange());
         Platform.runLater(() -> {
 
             mainController.getClient().photosForMainScreen(
@@ -45,7 +46,7 @@ public class MainForClientController extends BaseController{
                             long vehicleId = response.getVehicleId();
                             ByteString chunk = response.getChunk();
 
-                            // Если машина ещё не добавлена, создаём новый объект VehicleDetails
+
                             vehicleDetailsMap.putIfAbsent(vehicleId, new VehicleDetails(
                                     vehicleId,
                                     response.getBrand(),
@@ -53,10 +54,10 @@ public class MainForClientController extends BaseController{
                                     response.getPricePerDay()
                             ));
 
-                            // Получаем объект VehicleDetails для текущего автомобиля
+
                             VehicleDetails vehicleDetails = vehicleDetailsMap.get(vehicleId);
 
-                            // Добавляем данные фотографии в объект VehicleDetails
+
                             try {
                                 ByteArrayOutputStream photoStream = new ByteArrayOutputStream();
                                 photoStream.write(chunk.toByteArray());
@@ -90,35 +91,34 @@ public class MainForClientController extends BaseController{
 
 
 
-    private void clickOnDTP() {
-        switchScene("accident.fxml");
-
-    }
-
     private void clickOnBooking() {
         switchScene("table_bookings.fxml");
     }
 
-    private Image loadImage(String imagePath) {
-        return new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
+    private void clickOnChange() {
+        switchScene("data_picker_2.fxml");
     }
+
+//    private Image loadImage(String imagePath) {
+//        return new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
+//    }
 
     private HBox createItem(VehicleDetails vehicleDetails) {
 
         HBox itemBox = new HBox(20);
         itemBox.setAlignment(javafx.geometry.Pos.CENTER);
 
-        // Создаем метку с информацией о транспортном средстве
-        String labelText = vehicleDetails.toString(); // Используем toString для строки вида "Brand Model (Price)"
+
+        String labelText = vehicleDetails.toString();
         Label label = new Label(labelText);
 
-        // Изображение
+
         ImageView imageView = new ImageView();
 
-        // Обработчик кликов для элемента
+
         itemBox.setOnMouseClicked(event -> handleItemClick(vehicleDetails.getVehicleId()));
 
-        // Асинхронная загрузка изображения
+
         Task<Image> loadImageTask = new Task<>() {
             @Override
             protected Image call() {
@@ -126,28 +126,28 @@ public class MainForClientController extends BaseController{
             }
         };
 
-        // Успешная загрузка изображения
+
         loadImageTask.setOnSucceeded(event -> {
             Image image = loadImageTask.getValue();
             Platform.runLater(() -> {
                 imageView.setImage(image);
-                imageView.setFitHeight(200); // Высота изображения
-                imageView.setFitWidth(300);  // Ширина изображения
-                imageView.setPreserveRatio(true); // Сохраняем пропорции
+                imageView.setFitHeight(200);
+                imageView.setFitWidth(300);
+                imageView.setPreserveRatio(true);
             });
         });
 
-        // Обработка ошибок загрузки изображения
+
         loadImageTask.setOnFailed(event -> {
             System.err.println("Ошибка загрузки изображения для ID: " + vehicleDetails.getVehicleId());
         });
 
-        // Запуск задачи через пул потоков
+
         ExecutorService executor = Executors.newFixedThreadPool(5);
         executor.submit(loadImageTask);
         executor.shutdown();
 
-        // Добавляем метку и изображение в HBox
+
         itemBox.getChildren().addAll(imageView, label);
         return itemBox;
     }
@@ -156,153 +156,5 @@ public class MainForClientController extends BaseController{
         mainController.id_current_vehicle = id;
         switchScene("automobile.fxml");
     }
-
-//    private HBox createItem(VehicleDetails details) {
-//
-//        HBox itemBox = new HBox(20); // Установим расстояние между элементами
-//        itemBox.setAlignment(javafx.geometry.Pos.CENTER);
-//
-//        // Создаем метку с информацией о транспортном средстве
-//        String labelText = details.getBrand() + " " + details.getModel() + " - " + details.getPricePerDay() + "/day";
-//        Label label = new Label(labelText);
-//
-//        // Изображение
-//        ImageView imageView = new ImageView();
-//
-//        // Обработчик кликов для элемента
-//        itemBox.setOnMouseClicked(event -> handleItemClick(details.getVehicleId()));
-//
-//        // Асинхронная загрузка изображения
-//        Task<Image> loadImageTask = new Task<>() {
-//            @Override
-//            protected Image call() {
-//                return new Image(new ByteArrayInputStream(details.getPhotoData()));
-//            }
-//        };
-//
-//        // Успешная загрузка изображения
-//        loadImageTask.setOnSucceeded(event -> {
-//            Image image = loadImageTask.getValue();
-//            Platform.runLater(() -> {
-//                imageView.setImage(image);
-//                imageView.setFitHeight(200); // Высота изображения
-//                imageView.setFitWidth(300);  // Ширина изображения
-//                imageView.setPreserveRatio(true); // Сохраняем пропорции
-//            });
-//        });
-//
-//        // Обработка ошибок загрузки изображения
-//        loadImageTask.setOnFailed(event -> {
-//            System.err.println("Ошибка загрузки изображения для ID: " + details.getVehicleId());
-//        });
-//
-//        // Запуск задачи через пул потоков
-//        ExecutorService executor = Executors.newFixedThreadPool(5);
-//        executor.submit(loadImageTask);
-//        executor.shutdown();
-//
-//        // Добавляем метку и изображение в HBox
-//        itemBox.getChildren().addAll(imageView, label);
-//        return itemBox;
-//    }
-//
-
-
-
-
-    //    public void initialize() {
-//        //contentVBox.setAlignment(javafx.geometry.Pos.CENTER);
-//
-//        dtpButton.setOnAction(event -> clickOnDTP());
-//        Platform.runLater(() -> {
-//
-//            List<Rental.ListPhotosResponse> photos = new ArrayList<>();
-//
-//            mainController.getClient().listPhotos(new StreamObserver<Rental.ListPhotosResponse>() {
-//                private Map<String, ByteArrayOutputStream> photoChunks = new HashMap<>();
-//
-//                @Override
-//                public void onNext(Rental.ListPhotosResponse response) {
-//                    String photoName = response.getPhotoName();
-//                    ByteString chunk = response.getChunk();
-//
-//
-//                    photoChunks.computeIfAbsent(photoName, k -> new ByteArrayOutputStream());
-//
-//                    try {
-//                        // Добавляем данные в поток
-//                        photoChunks.get(photoName).write(chunk.toByteArray());
-//                    } catch (IOException e) {
-//                        System.err.println("Error writing chunk for photo: " + photoName);
-//                    }
-//                }
-//
-//
-//                @Override
-//                public void onError(Throwable throwable) {
-//                    System.err.println("Error during list photos request: " + throwable.getMessage());
-//                }
-//
-//                @Override
-//                public void onCompleted() {
-//                    System.out.println("List photos request completed.");
-//
-//
-//                    Platform.runLater(() -> {
-//
-//                        for (Map.Entry<String, ByteArrayOutputStream> entry : photoChunks.entrySet()) {
-//                            String photoName = entry.getKey();
-//                            byte[] photoData = entry.getValue().toByteArray();
-//
-//
-//                            HBox item = createItem(photoName, photoData);
-//                            contentListView.getItems().add(item);
-//                        }
-//                    });
-//                }
-//            });
-//        });
-//    }
-
-//    private HBox createItem(String labelText, byte[] byteArray) {
-//
-//        HBox itemBox = new HBox(100);
-//        itemBox.setAlignment(javafx.geometry.Pos.CENTER);
-//
-//        ImageView imageView = new ImageView();
-//        Label label = new Label(labelText);
-//
-//        itemBox.setOnMouseClicked(event -> handleItemClick());
-//
-//
-//        Task<Image> loadImageTask = new Task<>() {
-//            @Override
-//            protected Image call() {
-//                return new Image(new ByteArrayInputStream(byteArray));
-//            }
-//        };
-//
-//        loadImageTask.setOnSucceeded(event -> {
-//            Image image = loadImageTask.getValue();
-//            Platform.runLater(() -> {
-//                imageView.setImage(image);
-//                imageView.setFitHeight(200);
-//                imageView.setFitWidth(300);
-//            });
-//        });
-//
-//        loadImageTask.setOnFailed(event -> {
-//            System.err.println("Ошибка загрузки изображения");
-//        });
-//
-//        ExecutorService executor = Executors.newFixedThreadPool(5);
-//        executor.submit(loadImageTask);
-//        executor.shutdown();
-//
-//        itemBox.getChildren().addAll(imageView, label);
-//        return itemBox;
-//    }
-
-
 
 }

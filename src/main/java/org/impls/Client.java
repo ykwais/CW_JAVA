@@ -86,37 +86,8 @@ public class Client {
     }
 
 
-
-//    public List<Rental.ListPhotosResponse> listPhotos() {
-//        List<Rental.ListPhotosResponse> photos = new ArrayList<>();
-//        Iterator<Rental.ListPhotosResponse> responses = stub.listPhotos(Rental.EmptyRequest.newBuilder().build());
-//        while (responses.hasNext()) {
-//            photos.add(responses.next());
-//        }
-//        return photos;
-//    }
-
-
-
     public void shutdown() {
         channel.shutdownNow();
     }
 
-//    public static void main(String[] args) {
-//        ManagedChannel channel = ManagedChannelBuilder.forTarget("localhost:8080").usePlaintext().build();
-//
-//        GreetingGrpc.GreetingBlockingStub stub = GreetingGrpc.newBlockingStub(channel);
-//
-//        Rental.HelloRequest req = Rental.HelloRequest.newBuilder()
-//                .setLogin("exampleUser")
-//                .setPassword("examplePassword")
-//                .build();
-//
-//        Rental.HelloResponse response = stub.login(req);
-//
-//        System.out.println("Сервер ответил: " + response);
-//
-//        channel.shutdownNow();
-//
-//    }
 }
