@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" spacing="10" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.impls.controllers.AdminController">
+<VBox alignment="CENTER" prefHeight="240.0" prefWidth="248.0" spacing="10" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.impls.controllers.AdminController">
     <padding>
         <Insets bottom="20" left="20" right="20" top="20" />
     </padding>
@@ -15,6 +15,7 @@
 
     <!-- Кнопка "Backup" -->
     <Button fx:id="backupButton" maxWidth="200" text="Backup" />
+   <Button fx:id="rollBackButton" mnemonicParsing="false" text="RollBack" />
 
     <!-- Кнопка "Посмотреть информацию" -->
     <Button fx:id="viewInfoButton" maxWidth="200" text="Посмотреть информацию" />

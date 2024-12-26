@@ -14,6 +14,43 @@ service Service {
   rpc GetUserBookings (UserBookingsRequest) returns (UserBookingsResponse);
   rpc CancelBooking (CancelBookingRequest) returns (CancelBookingResponse);
   rpc GetDataForAdmin (GetDataForAdminRequest) returns (GetDataForAdminResponse);
+  rpc GetUsersForAdmin (GetUsersForAdminRequest) returns (GetUsersForAdminResponse);
+  rpc DeleteUser (DeleteUserRequest) returns (DeleteUserResponse);
+  rpc DoBackUp (DoBackUpRequest) returns (DoBackUpResponse);
+  rpc DoRollBack (DoRollBackRequest) returns (DoRollBackResponse);
+}
+
+message DoRollBackRequest {}
+
+message DoRollBackResponse {}
+
+
+message DoBackUpRequest {}
+
+message DoBackUpResponse {}
+
+
+message DeleteUserRequest {
+  int64 user_id = 1;
+}
+
+message DeleteUserResponse {
+  bool result = 1;
+}
+
+message GetUsersForAdminRequest {}
+
+message DataUsersForAdmin {
+  int64 user_id = 1;
+  string login = 2;
+  string email = 3;
+  string real_name = 4;
+  string created_at = 5;
+  int64 total_bookings = 6;
+}
+
+message GetUsersForAdminResponse {
+  repeated DataUsersForAdmin data_users = 1;
 }
 
 message GetDataForAdminRequest{}

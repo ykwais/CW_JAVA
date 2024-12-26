@@ -36,6 +36,11 @@ public class Client {
         asyncStub.getDataForAdmin(request, responseObserver);
     }
 
+    public void sendGetUsersForAdminRequest(StreamObserver<Rental.GetUsersForAdminResponse> responseObserver) {
+        Rental.GetUsersForAdminRequest request = Rental.GetUsersForAdminRequest.newBuilder().build();
+        asyncStub.getUsersForAdmin(request, responseObserver);
+    }
+
     public void sendGetUserBookingsRequest(long userId, StreamObserver<Rental.UserBookingsResponse> responseObserver) {
 
         Rental.UserBookingsRequest request = Rental.UserBookingsRequest.newBuilder()
@@ -44,6 +49,15 @@ public class Client {
 
 
         asyncStub.getUserBookings(request, responseObserver);
+    }
+
+    public void sendDeleteUserRequest(long id, StreamObserver<Rental.DeleteUserResponse> responseObserver) {
+        Rental.DeleteUserRequest request = Rental.DeleteUserRequest
+                .newBuilder()
+                .setUserId(id)
+                .build();
+        asyncStub.deleteUser(request, responseObserver);
+
     }
 
     public void sendCancelBooking(long userID, long vehicleId, StreamObserver<Rental.CancelBookingResponse> responseObserver) {
@@ -88,6 +102,16 @@ public class Client {
                 .setDateEnd(dateEnd)
                 .build();
         asyncStub.photosForMainScreen(request, responseObserver);
+    }
+
+    public void sendDoBackUpRequest(StreamObserver<Rental.DoBackUpResponse> responseObserver) {
+        Rental.DoBackUpRequest request = Rental.DoBackUpRequest.newBuilder().build();
+        asyncStub.doBackUp(request, responseObserver);
+    }
+
+    public void sendDoRollBackRequest(StreamObserver<Rental.DoRollBackResponse> responseObserver) {
+        Rental.DoRollBackRequest request = Rental.DoRollBackRequest.newBuilder().build();
+        asyncStub.doRollBack(request, responseObserver);
     }
 
 
