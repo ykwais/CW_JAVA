@@ -5,23 +5,23 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="240.0" prefWidth="248.0" spacing="10" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.impls.controllers.AdminController">
+<VBox alignment="CENTER" prefHeight="348.0" prefWidth="365.0" spacing="10" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.impls.controllers.AdminController">
     <padding>
         <Insets bottom="20" left="20" right="20" top="20" />
     </padding>
 
-    <!-- Неизменяемое текстовое поле -->
-    <TextField fx:id="adminTextField" editable="false" maxWidth="300" text="Информация администратора" />
 
-    <!-- Кнопка "Backup" -->
+    <TextField fx:id="adminTextField" editable="false" maxWidth="300" text="Admin's panel" />
+
+
     <Button fx:id="backupButton" maxWidth="200" text="Backup" />
-   <Button fx:id="rollBackButton" mnemonicParsing="false" text="RollBack" />
+   <Button fx:id="rollBackButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="199.0" text="RollBack" />
 
-    <!-- Кнопка "Посмотреть информацию" -->
-    <Button fx:id="viewInfoButton" maxWidth="200" text="Посмотреть информацию" />
 
-    <!-- Кнопка "Посмотреть пользователей" -->
-    <Button fx:id="viewUsersButton" maxWidth="200" text="Посмотреть пользователей" />
+    <Button fx:id="viewInfoButton" maxWidth="200" text="Info" />
+
+
+    <Button fx:id="viewUsersButton" maxWidth="200" text="Get Users" />
 
     <Button fx:id="backButton" maxWidth="200" text="Back" />
 </VBox>

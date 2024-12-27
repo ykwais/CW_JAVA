@@ -5,6 +5,7 @@ import io.grpc.stub.StreamObserver;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 import java.util.concurrent.CountDownLatch;
@@ -15,7 +16,10 @@ public class LoginController extends BaseController {
     private Button loginButton, registerButton;
 
     @FXML
-    private TextField loginTextField, passwordTextField;
+    private TextField loginTextField;
+
+    @FXML
+    private PasswordField passwordTextField;
 
     public void initialize() {
         loginButton.setOnAction(event -> handleLogin());

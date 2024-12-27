@@ -10,7 +10,7 @@
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.impls.controllers.DateSelectionController2">
     <children>
         <!-- Выбор начальной даты -->
-        <Label style="-fx-font-size: 14px; -fx-text-fill: #333;" text="Начальная дата">
+        <Label style="-fx-font-size: 14px; -fx-text-fill: #333;" text="Start booking">
             <VBox.margin>
                 <Insets bottom="10.0" />
             </VBox.margin>
@@ -22,7 +22,7 @@
         </DatePicker>
 
         <!-- Выбор конечной даты -->
-        <Label style="-fx-font-size: 14px; -fx-text-fill: #333;" text="Конечная дата">
+        <Label style="-fx-font-size: 14px; -fx-text-fill: #333;" text="End booking">
             <VBox.margin>
                 <Insets bottom="10.0" />
             </VBox.margin>

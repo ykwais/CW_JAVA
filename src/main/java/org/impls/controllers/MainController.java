@@ -28,6 +28,7 @@ public class MainController {
 
     public void loadScene(String fxmlFilePath) {
         try {
+            String title = getStageTitle(fxmlFilePath);
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFilePath));
             Parent root = loader.load();
 
@@ -40,6 +41,7 @@ public class MainController {
             scene.getStylesheets().add(css);
 
             primaryStage.setScene(scene);
+            primaryStage.setTitle(title);
             primaryStage.show();
 
         } catch (IOException e) {
@@ -50,6 +52,35 @@ public class MainController {
 
     public Client getClient() {
         return client;
+    }
+
+    private String  getStageTitle(String fxmlName) {
+        String[] parts = fxmlName.split("\\.");
+        switch (parts[0]) {
+            case "login":
+                return "Login";
+            case "register":
+                return "Registration";
+            case "admin_view" :
+                return "Specially for admin";
+            case "automobile" :
+                return "Select this Automobile!";
+            case "data_picker" :
+                return "Choose Data for booking";
+            case "data_picker_2" :
+                return "Choose Data for booking";
+            case "main_for_client" :
+                return "Choose your Automobile";
+            case "table_bookings" :
+                return "Your bookings";
+            case "table_info_for_admin":
+                return "Information for admin";
+            case "table_users_for_admin":
+                return "Information about users";
+            default:
+                return parts[0];
+
+        }
     }
 }
 
